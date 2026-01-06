@@ -18,15 +18,15 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Build debug APK
-        run: ./gradlew assembleDebug
+      - name: Build release APK
+        run: ./gradlew assembleRelease
         working-directory: android
 
       - name: Export APK_NAME
         run: echo "APK_NAME=LibrePods-$(echo ${{ github.sha }} | cut -c1-7).apk" >> $GITHUB_ENV
 
       - name: Rename APK
-        run: mv android/app/build/outputs/apk/debug/*.apk "./$APK_NAME"
+        run: mv android/app/build/outputs/apk/release/*.apk "./$APK_NAME"
 
       - name: Decode keystore file
         run: echo "${{ secrets.DEBUG_KEYSTORE_FILE }}" | base64 --decode > debug.keystore
